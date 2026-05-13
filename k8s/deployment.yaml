@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: novapay-payment-gateway
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: novapay-payment-gateway
+  template:
+    metadata:
+      labels:
+        app: novapay-payment-gateway
+    spec:
+      containers:
+      - name: novapay-payment-gateway
+        image: novapay-payment-gateway:v1
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
