@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: novapay-payment-gateway
-  namespace: default
+  namespace: novapay
   labels:
     app: novapay-payment-gateway
 spec:
