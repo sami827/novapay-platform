@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: novapay-alertmanager-config
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  route:
+    receiver: novapay-slack
+    matchers:
+      - name: alertname
+        value: NovaPay_HighFailureRate
+  receivers:
+    - name: novapay-slack
+      slackConfigs:
+        - apiURL:
+            name: slack-webhook-secret
+            key: webhookURL
+          channel: '#alerts'
+          sendResolved: true
+          title: 'NovaPay Alert: {{ .CommonLabels.alertname }}'
+          text: '{{ .CommonAnnotations.description }}'
