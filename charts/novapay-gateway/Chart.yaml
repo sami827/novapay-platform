@@ -1,0 +1,5 @@
+apiVersion: v2
+name: novapay-gateway
+description: NovaPay Payment Gateway Helm Chart
+version: 0.1.0
+appVersion: "1.0.0"

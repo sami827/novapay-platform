@@ -1,0 +1,21 @@
+replicaCount: 2
+
+image:
+  repository: novapay-payment-gateway
+  tag: v1
+  pullPolicy: Never
+
+containerPort: 5000
+
+resources:
+  requests:
+    memory: "64Mi"
+    cpu: "250m"
+  limits:
+    memory: "128Mi"
+    cpu: "500m"
+
+service:
+  port: 80
+  targetPort: 5000
+  type: ClusterIP
