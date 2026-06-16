@@ -1,0 +1,19 @@
+replicaCount: 4
+
+image:
+  repository: novapay-payment-gateway
+  tag: v1
+  pullPolicy: Always
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "500m"
+  limits:
+    memory: "512Mi"
+    cpu: "1000m"
+
+service:
+  port: 80
+  targetPort: 5000
+  type: LoadBalancer

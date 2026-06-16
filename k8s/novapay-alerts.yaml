@@ -1,0 +1,24 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: novapay-slo-alerts
+  namespace: monitoring
+  labels:
+    release: monitoring
+spec:
+  groups:
+    - name: novapay.slo
+      interval: 15s
+      rules:
+        - alert: NovaPay_HighFailureRate
+          expr: |
+            rate(novapay_transactions_total{status="failed"}[5m])
+            /
+            rate(novapay_transactions_total[5m])
+            > 0.01
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "NovaPay payment failure rate exceeds SLO"
+            description: "Failure rate is {{ $value | humanizePercentage }} over the last 5 minutes. SLO threshold is 1%."
